@@ -1,0 +1,32 @@
+.holder {
+  border                : 1px dashed black;
+  position              : absolute;
+  text-align            : center;
+  color                 : slategray;
+}
+
+.holder.deck {
+  top                   : 20vh;
+  left                  : 40vw;
+}
+
+.holder.moved {
+  top                   : 40vh;
+  left                  : 50vw;
+}
+
+.holder.stack1 {
+  top                   : 15vh;
+  left                  : 20vw;
+}
+
+.holder.stack2 {
+  top                   : 15vh;
+  left                  : 70vw;
+}
+
+.holder {
+  height                : 67px;
+  width                 : 57px;
+  border-radius         : 11px;
+}

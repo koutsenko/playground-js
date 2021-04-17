@@ -1,0 +1,47 @@
+/**
+ * Игровое меню
+ */
+#mxwsol-menu {
+  opacity         : 0.9;
+  pointer-events  : none;
+
+  & > * {
+    background-color  : darkgreen;
+    border-radius     : 1em;
+    box-shadow        : 0 0 0.1em 0.1em rgba(0,0,0,0.25);
+    cursor            : pointer;
+    filter            : brightness(0.8);
+    overflow          : hidden;
+    pointer-events    : all;
+    text-overflow     : ellipsis;          /* Подстраховка от слома layout */
+    & > div {
+      background      : black;
+      border-radius   : 1em 1em 0 0;
+      color           : greenyellow;
+      text-transform  : lowercase;
+      text-align      : center;
+    }
+  }
+
+  .pressed {
+    transform: scale(0.9);
+  }
+
+  .disabled {
+    filter: grayscale(1) brightness(0.5);
+    cursor: default;
+    opacity: 0.3;
+  }
+
+  /**
+  * Иконки меню.
+  */
+  [class*='btn'] {
+    background-size: cover;
+  }
+  .btn1 { background-image: url('res/menu_deal.svg');    }
+  .btn2 { background-image: url('res/menu_undo.svg');    }
+  .btn3 { background-image: url('res/menu_auto.svg');    }
+  .btn4 { background-image: url('res/menu_records.svg'); }
+  .btn6 { background-image: url('res/menu_help.svg');    }
+}

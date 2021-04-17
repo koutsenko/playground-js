@@ -1,0 +1,14 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: darkblue;
+  position: fixed;
+  top: 0;
+}
+
+.menu a,
+.menu li {
+  color: white;
+}

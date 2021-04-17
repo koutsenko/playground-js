@@ -1,0 +1,9 @@
+export default {
+  CARD_RETURN   : 'CARD_RETURN' ,
+  DECK_RESET    : 'DECK_RESET'  ,
+  FILL_STACK1   : 'FILL_STACK1' ,
+  MOVE_STACK12  : 'MOVE_STACK12',
+  OPEN_CARD     : 'OPEN_CARD'   ,
+  LOCK_GUI      : 'LOCK_GUI'    ,
+  UNLOCK_GUI    : 'UNLOCK_GUI'
+};

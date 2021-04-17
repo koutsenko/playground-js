@@ -1,0 +1,90 @@
+.mxwsol-card {
+  border-radius : 0.5em;
+  font-family   : m3w-card;
+  left          : 0;
+  perspective   : 60em;
+  position      : absolute;
+  top           : 0;
+
+  &:not(.moving) {
+    transition  : transform 500ms;
+  }
+
+  &:not(.flipped) {
+    .face {
+      transform: rotateY(-180deg)
+    }
+    .back {
+      transform: rotateY(0deg)
+    }
+  }
+
+  &.flipped {
+    .face {
+      transform: rotateY(0deg)
+    }
+    .back {
+      transform: rotateY(180deg)
+    }
+  }
+
+  & .face,
+  & .back {
+    transition                    : 0.5s ease-in-out;
+    background-color              : #ffa;
+    backface-visibility           : hidden;
+    border-radius                 : 0.4em;
+    box-shadow                    : 0 0 0.25em 0.1em black;
+    height                        : 100%;
+    pointer-events                : none;
+    position                      : absolute;
+    width                         : 100%;
+  }
+
+  /**
+   * TODO Фон пока общий, вероятно для mini нужно упрощенную версию.
+   * Так как рисунок рубашки сливается в одно черное пятно.
+   * В таком случае вынести код в medium/mini.less.
+   */
+  & .back {
+    background-size   : cover;
+    background-image  : url('res/back_back.svg');
+  }
+
+  /**
+   * Общие моменты текстовой верстки уголков и центра фейса
+   */
+  & .face:before,
+  & .face:after {
+    position    : absolute;
+    white-space : pre;
+  }
+
+  /**
+   * Тюнинг текстового отступа уголков
+   */
+  & .face:before {
+    margin-left : 0.1em;
+    text-indent : 0.1em;
+  }
+
+  /**
+   * Выравнивание по центру символьных рисунков
+   */
+  & .face:after {
+    text-align  : center;
+  }
+
+  &[data-id*='D'],
+  &[data-id*='H'] {
+    & .face {
+      color     : red;
+    }
+  }
+  &[data-id*='S'],
+  &[data-id*='C'] {
+    & .face {
+      color     : black;
+    }
+  }
+}

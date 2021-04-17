@@ -1,0 +1,32 @@
+.card {
+  border-radius         : 10px;
+  height                : 65px;
+  position              : absolute;
+  width                 : 55px;
+}
+
+.card > .face,
+.card > .back {
+  backface-visibility   : hidden;
+  border                : 1px solid brown;
+  border-radius         : inherit;
+  height                : inherit;
+  position              : absolute;
+  text-align            : center;
+  top                   : 0;
+  width                 : inherit;
+}
+
+.card > .face {
+  background-color      : #ffa;
+  font-size             : 20px;
+}
+
+.card > .back {
+  background-color      : burlywood;
+  padding               : 20px 0;
+}
+
+.card > .face.red {
+  color                 : red;
+}

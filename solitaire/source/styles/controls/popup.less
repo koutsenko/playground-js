@@ -1,0 +1,70 @@
+.popup {
+  background-color  : darkgreen;
+  border            : 0.5em solid black;
+  border-radius     : 1em;
+  box-sizing        : border-box;
+  box-shadow        : 0 0 0.5em 0.1em black;
+  color             : greenyellow;
+  font-size         : 1.2em;
+  text-align        : center;
+
+  hr {
+    background-color  : yellowgreen;
+    border            : none;
+    height            : 0.1em;
+  }
+
+  .header {
+    height            : 2em;
+    text-align        : left;
+  }
+
+  .caption, .close {
+    color             : yellow;
+    display           : inline-block;
+  }
+
+  .caption {
+    font-size         : 1.25em;
+    line-height       : 1.75em;
+    margin            : 0.5em 2em;
+  }
+
+  .close {
+    position          : absolute;
+    background-color  : inherit;
+    cursor            : pointer;
+    font-size         : 2.5em;
+    line-height       : 0.8em;
+    right             : 0;
+    text-align        : center;
+    width             : 1.5em;
+    font-weight       : bold;
+  }
+
+  .content {
+    padding           : 0 1em;
+    text-align        : justify;
+    display           : inline-block;
+  }
+
+  .buttonBar {
+    text-align        : center;
+    margin            : 0.5em 0;
+    padding           : 0.5em 0;
+    font-size         : 1.5em;
+
+    .button {
+      display           : inline-block;
+      padding           : 0.25em 1em;
+      background-color  : inherit;
+      border            : 0.1em solid green;
+      border-radius     : 0.25em;
+      cursor            : pointer;
+      line-height       : 0.8em;
+      bottom            : 0;
+      text-align        : center;
+      margin            : 0 0.5em;
+    }
+  }
+}

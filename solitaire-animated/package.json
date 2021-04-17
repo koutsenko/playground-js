@@ -1,0 +1,31 @@
+{
+  "name": "animations",
+  "version": "1.0.0",
+  "description": "Известные проблемы:\r - не будет работать в IE11 для Win10 https://connect.microsoft.com/IE/Feedback/Details/2474735",
+  "main": "source/js/EP.js",
+  "scripts": {
+    "web": "./node_modules/.bin/webpack-dev-server --host 0.0.0.0",
+    "build": "./node_modules/.bin/webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koutsenko/m3w-sol-animations.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koutsenko/m3w-sol-animations/issues"
+  },
+  "homepage": "https://github.com/koutsenko/m3w-sol-animations#readme",
+  "devDependencies": {
+    "prop-types": "^15.5.9",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-motion": "^0.5.0",
+    "react-redux": "^5.0.4",
+    "redux": "^3.6.0",
+    "reselect": "^3.0.1",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}

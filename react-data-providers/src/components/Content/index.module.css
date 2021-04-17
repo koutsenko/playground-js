@@ -1,0 +1,10 @@
+.content-container {
+  padding-left: var(--sidebar-width);
+  padding-top: var(--header-height);
+  box-sizing: border-box;
+  overflow-y: scroll;
+}
+
+.content {
+  padding: var(--content-padding);
+}

@@ -1,0 +1,9 @@
+.page {
+  background-color: darkseagreen;
+  position: relative;
+  width: 500px;
+  height: 200px;
+  overflow: hidden;
+  left: 65px;
+  top: 50px;
+}

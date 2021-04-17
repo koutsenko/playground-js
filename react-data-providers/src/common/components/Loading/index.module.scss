@@ -1,0 +1,42 @@
+@import 'common/assets/z-index';
+
+.img {
+  color: black;
+  margin-top: 1em;
+}
+
+.loaderBackground {
+  opacity: 0.9 !important;
+}
+
+.loader {
+  transition: 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06); // https://easings.net/ru#easeInQuint
+  opacity: 0;
+  background-color: rgb(239, 241, 244);
+  align-items: center;
+  bottom: 0;
+  display: flex;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $z-index_loader_global;
+}
+
+.loaderLite {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.loaderContent {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 1em;
+  text-align: center;
+}
+
+.loadingText {
+  color: black;
+  display: block;
+  font-family: Circe;
+  opacity: 0.8;
+}

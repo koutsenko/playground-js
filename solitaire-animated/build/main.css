@@ -1,0 +1,22 @@
+* {
+  box-sizing            : border-box;
+}
+
+body {
+  margin                : 0;
+}
+
+.menu {
+  background-color      : gray;
+}
+
+button {
+  margin                : 0.5em;
+  width                 : 10em;
+}
+
+.board {
+  position              : absolute;
+  top                   : 0;
+  bottom                : 0;
+}

@@ -1,0 +1,11 @@
+.rotationInput {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background-color: white;
+  padding: 5px;
+}
+
+.rotationInput > input {
+  margin-left: 20px;
+}
