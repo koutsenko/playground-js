@@ -1,0 +1,12 @@
+.Chart-wrapper {
+    background-color: lightsteelblue;
+}
+
+.Chart-wrapper > .recharts-wrapper {
+    display: flex;
+    width: unset !important;
+}
+
+.Chart-wrapper > .recharts-wrapper > .recharts-surface {
+    flex: 1 0 50%;
+}

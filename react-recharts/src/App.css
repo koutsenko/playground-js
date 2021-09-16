@@ -1,38 +1,29 @@
 .App {
+  background-color: lightyellow;
+  height: 100vh;
+}
+
+.App-title {
   text-align: center;
+  width: 100%;
+  display: inline-block;
+  margin: 20px 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+.App-widget {
+  /* Центрирование виджета */
+  margin: 0 auto;
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+  /* Ширина - резина с ограничителем */
+  width: 50vw;
+  max-width: 400px;
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+  /* Делаем границы и размеры виджета видимыми */
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  /* Паддинги как в задаче */
+  padding: 32px 24px;
+  box-sizing: border-box;
 }
