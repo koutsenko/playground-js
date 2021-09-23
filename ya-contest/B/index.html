@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            --cell-width: 30px;
+            --cell-color-light: #f4cd8d;
+            --cell-color-dark: #745853;
+            --cell-color-active: #ff0000;
+            --cell-color-possible: #0000ff;
+        }
+
+        html,
+        body {
+            margin: 0;
+        }
+
+        .table {
+            width: calc(var(--cell-width) * 8);
+            height: calc(var(--cell-width) * 8);
+            position: absolute;
+            left: 0;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .cell {
+            float: left;
+            height: var(--cell-width);
+            padding: 0;
+            width: var(--cell-width);
+            position: relative;
+        }
+
+        .cell:focus-within {
+            background-color: var(--cell-color-active);
+        }
+
+        /* Фокусируемый элемент */
+        .cell>p {
+            /* Стили */
+            background: transparent;
+            caret-color: transparent;
+            cursor: default;
+            margin: 0;
+            border: 0;
+            outline: 0;
+
+            /* Разметка */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .cell:not(:focus-within).light {
+            background-color: var(--cell-color-light);
+        }
+
+        .cell:not(:focus-within).dark {
+            background-color: var(--cell-color-dark);
+        }
+
+        .cell:focus-within p:after {
+            content: "";
+            width: var(--cell-width);
+            height: var(--cell-width);
+            background-color: var(--cell-color-possible);
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .cell:focus-within>p:nth-child(1):after {
+            left: calc(var(--cell-width) * 2);
+            top: var(--cell-width);
+        }
+
+        .cell:focus-within>p:nth-child(2):after {
+            left: var(--cell-width);
+            top: calc(var(--cell-width) * 2);
+        }
+
+        .cell:focus-within>p:nth-child(3):after {
+            left: calc(var(--cell-width) * 2);
+            top: calc(var(--cell-width) * -1);
+        }
+
+        .cell:focus-within>p:nth-child(4):after {
+            left: var(--cell-width);
+            top: calc(var(--cell-width) * -2);
+        }
+
+        .cell:focus-within>p:nth-child(5):after {
+            right: calc(var(--cell-width) * 2);
+            top: var(--cell-width);
+        }
+
+        .cell:focus-within>p:nth-child(6):after {
+            right: var(--cell-width);
+            top: calc(var(--cell-width) * 2);
+        }
+
+        .cell:focus-within>p:nth-child(7):after {
+            right: calc(var(--cell-width) * 2);
+            top: calc(var(--cell-width) * -1);
+        }
+
+        .cell:focus-within>p:nth-child(8):after {
+            right: var(--cell-width);
+            top: calc(var(--cell-width) * -2);
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="table">
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell dark">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+        <div class="cell light">
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+            <p contenteditable="true"></p>
+        </div>
+    </div>
+</body>
+
+</html>
