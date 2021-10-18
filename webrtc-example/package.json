@@ -5,7 +5,6 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "lint": "eslint index.js examples lib test",
     "start": "node index.js"
   },
   "keywords": [
@@ -27,8 +26,5 @@
     "node-fetch": "^2.3.0",
     "uuid": "^3.3.2",
     "wrtc": "^0.4.3"
-  },
-  "devDependencies": {
-    "eslint": "^5.15.1"
   }
 }
