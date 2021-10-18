@@ -21,12 +21,11 @@ This project presents a few example applications using node-webrtc.
 Usage
 -----
 
-Install the project's dependencies and run the tests before starting the
+Install the project's dependencies before starting the
 application server:
 
 ```
 npm install
-npm test
 npm start
 ```
 
