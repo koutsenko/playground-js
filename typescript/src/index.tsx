@@ -1,7 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import EnumDemo from './components/EnumDemo';
+import EnumsDemo from './components/EnumsDemo';
+import InterfacesDemo from './components/InterfacesDemo';
 
 interface MyComponentProps {
   tokens: string[]
@@ -18,6 +19,7 @@ const tokens = ['Hello', 'webpack', 'and', 'react'];
 ReactDOM.render((
   <div>
     <MyComponent {...{ tokens }} />
-    <EnumDemo />
+    <EnumsDemo />
+    <InterfacesDemo />
   </div>
 ), document.body);
