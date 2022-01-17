@@ -1,0 +1,9 @@
+Q: Как вы следите за новостями JS
+A: Разные ресурсы:
+- реддит https://www.reddit.com/r/Frontend/
+- аккаунты в твиттере
+  - TC39 (стандарты)
+  - John Resig (jQuery)
+  - Dan Abramov (redux)
+  - MoscowJS/MoscowCSS
+  - JS Daily, Веб-стандарты, For Web (дайджест)
