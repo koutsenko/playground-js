@@ -1,5 +1,6 @@
 Q: Как вы следите за новостями JS
 A: Разные ресурсы:
+- переводы на девшахте https://medium.com/devschacht/
 - реддит https://www.reddit.com/r/Frontend/
 - аккаунты в твиттере
   - TC39 (стандарты)
