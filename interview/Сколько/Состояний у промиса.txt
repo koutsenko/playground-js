@@ -1,0 +1,2 @@
+Q: Сколько состояний у промиса?
+A: Три - pending, fulfilled, rejected

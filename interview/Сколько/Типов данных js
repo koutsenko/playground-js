@@ -11,7 +11,3 @@ A: Восемь
 
 Symbol('foo') === Symbol('foo')  // false
 Параметр - описание символа, доступен через поле description.
-
-Q: Сколько состояний у промиса?
-A: Три - pending, fulfilled, rejected
-

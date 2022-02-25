@@ -1,4 +1,8 @@
-const findVowels = str => {
+/**
+ * Нужно написать функцию подсчета количества гласных в строке.
+ */
+
+function findVowels(str) {
   const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
   let count = 0;
   for (let char of str.toLowerCase()) {
@@ -7,7 +11,7 @@ const findVowels = str => {
   return count;
 }
 
-const findVowels2 = str => {
+function findVowels2(str) {
   const matches = str.match(/[aeiouy]/gi);
   return matches ? matches.length : 0;
 }
