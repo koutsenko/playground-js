@@ -1,0 +1,537 @@
+﻿# Вопросы и задачи по Javascript
+
+**В прямом смысле задачки**
+
+- Перевернуть строку
+    
+    ```jsx
+    function reverseWords(str) {
+      let result = '';
+      const reversedWords = [];
+      const tokens = str.split(' ');
+      tokens.forEach(token => {
+        let reversedWord = '';
+    		for (let j = token.length - 1; j >= 0; j -= 1) {
+    			reversedWord += token[j];
+    		}
+    		reversedWords.push(reversedWord.toLowerCase());
+    	});
+    	result = reversedWords.join(' ');
+    	return result;
+    }
+    
+    console.log(reverseWords('This is a string to reverse'));
+    // expected result = 'siht si a gnirts ot esrever'
+    ```
+    
+
+**Strict mode**
+
+- Теория
+    
+    [https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode](https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Strict_mode)
+    
+    - Активация
+        
+        1 На уровне скрипта активация через 'use strict'; в начале кода
+        
+        2 Можно активировать на уровне функций (рекомендуется в переходной период)
+        
+        ```jsx
+        function strict() {
+          "use strict";
+          function nested() { 
+        		return "И я тоже!"; 
+        	}
+        
+          return "Привет! Я функция в строгом режиме! " + nested();
+        }
+        
+        function notStrict() { 
+        	return "Я не strict.";
+        }
+        ```
+        
+        3 На уровне модулей JavaScript ECMAScript 2015 включен по-умолчанию
+        
+        ```jsx
+        function strict() {
+          // Потому что это модуль, я strict по-умолчанию
+        }
+        
+        export default strict;
+        ```
+        
+    - Изменения
+        
+        ```
+        "use strict";
+                              // Предполагая, что не существует глобальной переменной
+        mistypeVaraible = 17; // mistypedVaraible, эта строка выбросит ReferenceError
+                              // из-за опечатки в имени переменной
+        
+        // Присваивание значения глобальной переменной, защищённой от записи
+        var undefined = 5; // выдаст TypeError
+        var Infinity = 5; // выдаст TypeError
+        
+        // Присваивание значения свойству, защищённому от записи
+        var obj1 = {};
+        Object.defineProperty(obj1, "x", { value: 42, writable: false });
+        obj1.x = 9; // выдаст TypeError
+        
+        // Присваивание значения свойству, доступному только для чтения
+        var obj2 = { get x() { return 17; } };
+        obj2.x = 5; // выдаст TypeError
+        
+        // Задание нового свойства нерасширяемому объекту
+        var fixed = {};
+        Object.preventExtensions(fixed);
+        fixed.newProp = "ohai"; // выдаст TypeError
+        
+        delete Object.prototype; // выдаст TypeError
+        
+        var o = { p: 1, p: 2 }; // !!! синтаксическая ошибка
+        
+        function sum(a, a, c) { // !!! синтаксическая ошибка
+          "use strict";
+          return a + a + c; // ошибка, если код был запущен
+        }
+        
+        var a = 0o10; // ES2015: Восмеричное
+        
+        false.true = '';         // TypeError
+        (14).sailing = 'home';   // TypeError
+        'with'.you = 'far away'; // TypeError
+        
+        var x = 17;
+        with (obj) { // !!! синтаксическая ошибка
+          // Если код не в строгом режиме, то будет ли x ссылаться на переменную var x, или
+          // на свойство obj.x? Предугадать без запуска кода невозможно,
+          // следовательно такой код не может быть эффективно оптимизирован.
+          x;
+        }
+        ```
+        
+    
+
+**На понимание поднятия переменных**
+
+- Выражения которые не приведут к ошибке
+    
+    ```jsx
+    // Функция catName объявленная через function поднимается и доступна сразу
+    catName("Chloe");
+    function catName(name) {
+      console.log("My cats name is " + name);
+    }
+    
+    // Выведет My cats name is Chloe
+    ```
+    
+- Выражения которые работают, но некорректно
+    
+    ```jsx
+    // Объявление поднимается, но инициализация на момент обращения не произошла
+    console.log(a);
+    console.log(b);
+    var a;
+    var b = 5;
+    console.log(b);
+    
+    // Выведет undefined, undefined, 5
+    ```
+    
+- Выражения, которые не работают (выдают ошибку)
+    
+    ```jsx
+    // Объявление поднимается, но инициализация на момент обращения не произошла
+    a("Chloe");
+    var a = function(name) {
+      console.log("My cats name is " + name);
+    }
+    a("Bob");
+    
+    // Выведет TypeError: a is not a function и скрипт завершится, до Боба не дойдет
+    ```
+    
+
+**На понимание типов данных**
+
+- Какие есть типы данных в JavaScript (typeof x или typeof(x))
+    - **number -** число, это и целые, и float, а также NaN, Infinity и -Infinity
+    - **bigint -** гигантское число, для криптографии или штампов времени с микросекундами
+    - **string -** строка (в одинарных кавычках, двойных или в обратных (с вычислимостью))
+    - **boolean** - true / false
+    - **null** - null, т.е. значение неизвестно, пустота. Кстати typeof вернет **null** (ошибка языка)
+    - **undefined** - undefined, т.е. значение не присвоено (если объявили переменную)
+    - **object** - объект, промис или функция. У функций тип object, но typeof вернет **function**
+    - **symbol** - для уникальных идентификаторов
+- Преобразование типов
+    
+    ```jsx
+    // Вопрос: что выведет?
+    
+    // Cтроковое преобразование через alert, console.log, String()
+    undefined = "undefined"
+    Infinity = "Infinity"           // Это результат деления на ноль
+    false = "false"
+    true = "true"
+    null = "null"
+    NaN = "NaN"
+    
+    // Численное преобразование (и исключение в виде сложения строк)
+    console.log(3*"6")              // 3*6=18, числ. преобразование в мат. выраж.
+    console.log("3"-"1")            // 3-1=2, числ. преобразование в мат. выраж.
+    console.log(false+true)         // 0+1=1, числ. преобразование в мат. выраж.
+    console.log(null+1)             // 0+1=1, числ. преобразование в мат. выраж.
+    console.log("   5 " - 2)        // 5-2=7, числ. преобразование в мат. выраж. 
+    console.log(1+"7")              // 1+7=17, сложение и как минимум 1 строка
+    console.log("1"+"1")            // 11, сложение и как минимум 1 строка
+    console.log(2+undefined)        // 2+NaN=NaN, undefined всегда равен NaN
+    
+    // Логическое преобразование в логических операциях или в Boolean()
+    0, '', undefined, null, NaN = false
+    строка с нулем "0" это строка = true
+    все остальные непустые значения = true
+    
+    // Задача-ловушка 
+    const num = parseInt("7*6", 10);
+    console.log(num);
+    // Вывод: 42, "42", 7 или NaN? 
+    // Ответ: 7
+    // Почему: parseInt парсит до первого невалидного символа в строке
+    // При этом учитывается указанная система счисления, 10-ричная в данном случае.
+    
+    ```
+    
+- Работа с числами
+    
+    В целом достаточно сказать что все операции безопасны (скрипт не умрет), в худшем случае мы получим NaN как результат выполнения. Если где-то в выражении есть NaN, результат тоже будет NaN.
+    
+    **Рациональные числа**
+    
+    - [на хекслете говорят](https://ru.hexlet.io/courses/js-data-abstraction/lessons/levels/theory_unit) что это дробные числа, представленные в виде числителя и знаменателя, что JS в них из коробки не умеет и что надо
+    - [на другом ресурсе (ru.code-basics.com) рациональными назвали](https://ru.code-basics.com/languages/javascript/lessons/float) дробные числа как есть (0.5 и т.п.) и сказали что операции с "рациональными числами" в js это проблема
+        
+         `0.2 * 0.2 // 0.04000000000000001`
+        
+    
+- Работа со строками
+    
+    ```jsx
+    // Каким будет результат [..."Lydia"]?
+    let result = [..."Lydia"];      // Массив элементов, которые вернет spread-оператор 
+    console.log(result);            // ['L', 'y', 'd', 'i', 'a'] 
+    ```
+    
+- Работа с массивами
+    
+    ```jsx
+    // Вопрос: почему мы не получим здесь [1,2,3,4,5]?
+    let newList = [1, 2, 3].push(4) // newList = 4 (новая длина массива) 
+    console.log(newList.push(5))    // TypeError: newList.push is not a function
+    
+    //
+    
+    ```
+    
+- Работа с объектами
+    - Способ запретить мутацию
+        
+        ```tsx
+        // Подстраховываемся и выдаем объект с иммутабельным полем state
+        export const userInfoInitialState = {
+        	get state(): IUserInfoReduxState {
+        		return {
+        			userInfo: null,
+        			userInfoProjects: initAsyncParticle<IUserInfoProjects>({
+        				authorityCodes: null,
+        				availableProjectsId: [],
+        				clientEpkId: null,
+        				relatedPerson: null,
+        			})
+        		}
+        	}
+        };
+        ```
+        
+
+ 
+
+**Событийный цикл - микрозадачи и макрозадачи ([MDN](https://developer.mozilla.org/ru/docs/Web/JavaScript/EventLoop), [learn.javascript.ru](https://learn.javascript.ru/event-loop))**
+
+- Макрозадачи
+    
+    Движок JavaScript в бесконечном цикле ожидает задачи, исполняет их и снова ожидает появления новых. Основной тип задач это макрозадачи, пример макрозадач:
+    
+    - выполнение скрипта по событию загрузки внешнего скрипта <script src="...">
+    - выполнение обработчиков событий на ввод или мышь (если они заданы)
+    - выполнение функции, чье выполнение отложено по таймеру setTimeout
+    
+    Если на момент выполнения задачи в очереди есть другие более старые, движок поставит задачу в очередь и будет сначала выполнять самые старые (FIFO - first in, first out). Кстати поэтому параметр времени в setTimeout называют минимальным временем выполнения, то есть это срок при условии если к тому моменту не будет других задач в очереди.
+    
+    Простой способ запланировать макрозадачу, это setTimeout с нулевой задержкой.
+    
+- Микрозадачи
+    
+    Микрозадачи приходят только из кода, обычно они создаются промисами - выполнение обработчика .then/catch/finally становится микрозадачей. Также они используются под капотом await, т.к. это форма обработки промиса. Сразу после каждой макрозадачи движок выполняет все задачи из очереди микрозадач; и только потом уже выполняет следующую макрозадачу, отображает изменения на странице или что-нибудь еще. 
+    
+- Событийный цикл
+    
+    Примерный алгоритм событийного цикла
+    
+    1. Выбрать и выполнить старейшую задачу из очереди макрозадач
+    2. Исполнить все микрозадачи из очереди
+    3. Отрисовать изменения страницы, если они есть
+    4. Если очередь макрозадач пуста - подождать пока они появятся
+    5. Перейти к шагу 1
+    
+    ![[Office]]
+    
+- Код на понимание
+    
+    ```jsx
+    // Порядок выполнения кода, **пример 1**
+    setTimeout(() => alert("timeout"));
+    Promise.resolve().then(() => alert("promise"));
+    alert("code");
+    
+    // Результат "code", "promise", "timeout", потому что:
+    // 1 "code" - т.к. это обычный синхронный вызов
+    // 2 "promise" - т.к. это микрозадача
+    // 3 "timeout" - т.к. это макрозадача
+    
+    // Порядок выполнения кода, **пример 2**
+    setTimeout(function timeout() {
+      console.log("Таймаут");
+    }, 0);
+    let p = new Promise(function(resolve, reject) {
+      console.log("Создание промиса");
+      resolve();
+    });
+    p.then(function() {
+      console.log("Обработка промиса");
+    });
+    console.log("Конец скрипта");
+    
+    // Результат "Создание промиса", "Конец скрипта", "Обработка промиса", "Таймаут"
+    // 1 "Создание промиса", т.к. сам промис создается синхронно и вып-ся сразу
+    // 2 "Конец скрипта", т.к. это обычный синхронный вызов
+    // 3 "Обработка промиса", т.к. промис уже resolved и then это уже микрозадача
+    // 4 "Таймаут", т.к. это макрозадача
+    ```
+    
+
+**Классы и прототипы в JavaScript**
+
+- Как расширить класс?
+    
+    ```jsx
+    // Исходный класс
+    class Dog {
+      constructor(name) {
+        this.name = name; 
+      }
+    }
+    
+    // Расширенный класс - this доступен только после вызова super
+    class Labrador extends Dog {
+      constructor(name, size) {
+        super(name);
+        this.size = size;
+      }
+    }
+    
+    ```
+    
+- Как изменить поведение объекта ?
+    
+    ```jsx
+    function Person(firstName, lastName) {
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    }
+    
+    const member = new Person("Lydia", "Hallie");
+    
+    // Уже после создания объекта, модифицируем класс чтобы изменить свойства
+    // Person.getFullName = function() { 
+    // Код выше выдаст TypeError, прямо в конструктор писать нельзя, пишем в прототип
+    Person.prototype.getFullName = function() {
+    	return `${this.firstName} ${this.lastName}`;
+    }
+    
+    console.log(member.getFullName());
+    // Напечатает Lydia Hallie
+    ```
+    
+
+**Каррирование**
+
+- Напиши функцию, которую можно вызвать двумя способами
+    
+    ```jsx
+    const multiply = (x, y) => {
+    	if (y !== undefined) {
+    	  return x*y;
+    	} else {
+    		return (y) => {
+    			return x*y;			
+    	  }
+    	}
+    }
+    
+    // Или вариант короче, но он хуже читается
+    // const multiply = (x, y) => y !== undefined ? x * y : y => x * y;
+    
+    console.log(multiply(2, 5)); // 10
+    console.log(multiply(2)(5)); // 10
+    
+    ```
+    
+
+**React**
+
+- Встроенные хуки
+    - useCallback
+        
+        ```jsx
+        [(doc)](https://reactjs.org/docs/hooks-reference.html#usecallback) Позволяет мемоизировать функцию, чтобы она не пересоздавалась при каждой 
+        отрисовке, а также позволет избежать лишних ререндеров дочерних компонентов 
+        при передачи в них функций в кач-ве props (особенности shallowCompare).
+        
+        function MyComponent() {
+          // handleClick is re-created on each render
+          const handleClick = () => {
+            console.log('Clicked!');
+          };
+        }
+        
+        function MyComponent() {
+          // handleClick is memoized
+          const handleClick = useCallback(() => {
+            console.log('Clicked!');
+          }, []);
+        }
+        ```
+        
+- Написание своих хуков
+    
+    ```jsx
+    [https://ru.reactjs.org/docs/hooks-custom.html](https://ru.reactjs.org/docs/hooks-custom.html)
+    
+    Хук это js-функция, ее имя начинается с use, и она может вызывать другие хуки.
+    Хуки используются на верхнем уровне (НЕ внутри циклов, операторов, влож. ф-ций).
+    Только в React-функциях до возврата какого-либо значения из них.
+    
+    Это чтобы хуки выполнялись в одинаковой последовательности при каждом рендере.
+    Пример хука
+    
+    import { useState, useEffect } from 'react';
+    
+    function useFriendStatus(friendID) {
+      const [isOnline, setIsOnline] = useState(null);
+    
+      useEffect(() => {
+        function handleStatusChange(status) {
+          setIsOnline(status.isOnline);
+        }
+    
+        ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+        return () => {
+          ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+        };
+      });
+    
+      return isOnline;
+    }
+    
+    Пример двух других функциональных компонентов, использующих этот хук
+    
+    function FriendStatus(props) {
+      const isOnline = useFriendStatus(props.friend.id);
+    
+      if (isOnline === null) {
+        return 'Загрузка...';
+      }
+      return isOnline ? 'В сети' : 'Не в сети';
+    }
+    
+    function FriendListItem(props) {
+      const isOnline = useFriendStatus(props.friend.id);
+    
+      return (
+        <li style={{ color: isOnline ? 'green' : 'black' }}>
+          {props.friend.name}
+        </li>
+      );
+    }
+    ```
+    
+- Примеры своих хуков в рабочих проектах
+    
+    TODO
+    
+
+**Electron**
+
+- Гайд на medium
+    
+    [https://medium.com/nuances-of-programming/руководство-по-созданию-настольного-приложения-в-electron-622fee6da323](https://medium.com/nuances-of-programming/%D1%80%D1%83%D0%BA%D0%BE%D0%B2%D0%BE%D0%B4%D1%81%D1%82%D0%B2%D0%BE-%D0%BF%D0%BE-%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D1%8E-%D0%BD%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0%BE-%D0%BF%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D1%8F-%D0%B2-electron-622fee6da323)
+    
+    О безопасности: в нашем примере для обеспечения взаимодействия фронтенда и бэкенда послужит сервер Express, что позволит нам оптимизировать процесс разработки и легко перенести в Electron уже имеющиеся у вас веб-приложения. Однако в производственной среде с этой целью всегда применяется Electron IPC.
+    
+    # **ts-node-dev**
+    
+    > Tweaked version of node-dev that uses ts-node under the hood.
+    > 
+    
+    It restarts target node process when any of required files changes (as standard `node-dev`) but shares **[Typescript](https://github.com/Microsoft/TypeScript/)** compilation process between restarts. This significantly increases speed of restarting comparing to `node-dev -r ts-node/register ...`, `nodemon -x ts-node ...` variations because there is no need to instantiate `ts-node` compilation each time.
+    
+- Гайд 2 на медиум
+    
+    [https://nuancesprog.ru/p/11429/](https://nuancesprog.ru/p/11429/)
+    
+- Гайд 3 на медиум
+    
+    [https://nuancesprog.ru/p/2778/](https://nuancesprog.ru/p/2778/)
+    
+
+TypeScript
+
+- Встроенные типы
+    
+    Record<K, T>
+    
+    ```tsx
+    // Объект, у которого поля и значения имеют заданный тип
+    const x: Record<"a", string>;
+    const acceptR(x: Record<"a", string>): void;
+    // Обе строки ниже выдадут ошибку на попытке выполнения
+    x.b; 
+    acceptR({a: "hey", b: "you"});
+    ```
+    
+- Дженерики в описаниях типов
+    
+    ```tsx
+    // Пример дженерика в описании типа.
+    
+    // В проекте есть 4 таблицы, в них фильтры filter имеют разный тип.
+    // Сигнатуры методов setFilter отличаются типом параметра filter.
+    export type TSetFilter<T> = (
+    		filter: Partial<T>,
+    		applyFilter?: boolean,
+    		isReset?: boolean,
+    		isResetPaginationRequired?: boolean;
+    		isPartial?: boolean,
+    		isOnlyAppliedFilterRequired?: boolean;
+    ) => void;
+    
+    // Соответственно, методы типизируем общим типом с дженериком:
+    let setFilter: TSetFilter<IPaymentsViewTableFilter>;
+    let setFilter: TSetFilter<IEscalationRequestsViewTableFilter>;
+    let setFilter: TSetFilter<IContractsViewTableFilter>;
+    let setFilter: TSetFilter<IContractSupportRequestsViewTableFilter>;
+    
+    ````
