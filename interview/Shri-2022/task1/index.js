@@ -4,6 +4,7 @@
  * A. Объявление.  
  * Задача написать JavaScript-функцию, которая разместит блоки с текстом как газетные колонки.
  * Ответ не приняли, почему - неизвестно.
+ * В последнем коммите я выставил boxSizing, но это решение уже не удалось отправить.
  */
 
 /**
@@ -27,6 +28,7 @@
     for (let i = 0; i < columnCount; i++) {
       let index = i + j * columnCount;
       if (index < items.length) {
+        items[index].style.boxSizing = 'border-box';
         items[index].style.width = columnWidth + 'px';
       }
     }
