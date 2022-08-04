@@ -101,7 +101,10 @@ const fizzBuzz3 = (maxNumber) => {
  */
 const fizzBuzz4 = (maxNumber) => {
   for (let i = 1; i <= maxNumber; i++) {
-    console.log((i % 5 ? "" : "Fizz") + (i % 3 ? "" : "Buzz") || i);
+    console.log((
+        (i % 5 ? "" : "Fizz") + (i % 3 ? "" : "Buzz") 
+        || i)
+    )
   }
 };
 
