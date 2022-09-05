@@ -1,0 +1,21 @@
+.carousel .slidesContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel .slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.carousel .slides .slide {
+    color: white;
+    border: 1px solid white;
+    box-sizing: border-box;
+}
+
+.transition {
+    transition: ease all 1s;
+}
