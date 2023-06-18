@@ -10,7 +10,7 @@
 const fs = require("node:fs");
 
 console.log("Начало чтения файла");
-fs.readFile("file.md", "utf-8", function (err, content) {
+fs.readFile("file.md", "utf-8", (err, content) => {
   if (err) {
     console.log("Ошибка чтения");
     return console.log(err);
