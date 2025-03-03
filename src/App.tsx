@@ -7,9 +7,16 @@ import { ProgressBarContainer } from "./React/ProgressBarContainer";
 import { Menu } from "./Menu";
 
 const App = () => {
+  const environment = process.env.VITE_GITHUB_WORKSPACE
+    ? "Github"
+    : process.env.VITE_CODESANDBOX_HOST
+    ? "CodeSandbox.io"
+    : "manual";
+
   return (
     <Router>
       <nav>
+        <p>Environment: {environment}</p>
         <Link to="/">Главная</Link>
         <hr />
       </nav>
