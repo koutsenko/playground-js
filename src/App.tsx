@@ -1,10 +1,24 @@
 import "./styles.css";
 
-export default function App() {
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+import { ProgressBarContainer } from "./React/ProgressBarContainer";
+import { Menu } from "./Menu";
+
+const App = () => {
   return (
-    <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-    </div>
+    <Router>
+      <nav>
+        <Link to="/">Главная</Link>
+        <hr />
+      </nav>
+      <Routes>
+        <Route path="/react/progress-bar" element={<ProgressBarContainer />} />
+        <Route path="/" element={<Menu />} />
+      </Routes>
+    </Router>
   );
-}
+};
+
+export default App;
