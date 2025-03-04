@@ -7,8 +7,10 @@ const Menu = () => {
     <nav>
       <p>Верстка</p>
       <Link to="/react/progress-bar">Прогресс-бар</Link>
+      <br />
+      <Link to="/react/draggable">Перетаскиваемый компонент</Link>
     </nav>
   );
 };
 
-export { Menu };
+export default Menu;

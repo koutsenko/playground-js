@@ -1,0 +1,22 @@
+.draggable-demo {
+  padding: 20px;
+}
+
+.draggable-item {
+  transition: transform 0.2s ease-out;
+}
+
+.draggable-item:hover {
+  transform: scale(1.02);
+}
+
+.draggable-container {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+@media (max-width: 768px) {
+  .draggable-container {
+    width: 100% !important;
+    height: 300px !important;
+  }
+} 
