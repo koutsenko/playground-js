@@ -1,6 +1,7 @@
 {
     "include": [
-        "./src/**/*"
+        "./src/**/*.ts",
+        "./src/**/*.tsx"
     ],
     "compilerOptions": {
         "strict": true,
@@ -9,6 +10,17 @@
             "dom",
             "es2015"
         ],
-        "jsx": "react-jsx"
+        "jsx": "react-jsx",
+        "module": "esnext",
+        "moduleResolution": "bundler",
+        "allowJs": true,
+        "typeRoots": ["./node_modules/@types", "./src/types"],
+        "target": "esnext",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["*", "src/*"]
+        }
     }
 }

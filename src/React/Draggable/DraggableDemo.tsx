@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import useDraggable from './useDraggable';
-import '../styles/draggable.css';
+// TODO Настроить подсветку неправильных импортов CSS посредством jsserver/tsserver, а не ESLint.
+import './draggable.css';
 
 interface DraggableItemProps {
   color: string;
