@@ -1,77 +1,28 @@
-import eslint from '@eslint/js';
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsparser from '@typescript-eslint/parser';
-import reactplugin from 'eslint-plugin-react';
-import css from '@eslint/css';
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
 
-export default [
-  eslint.configs.recommended,
+export default tseslint.config(
+  { ignores: ['dist'] },
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
-    plugins: {
-      '@typescript-eslint': tseslint,
-      'react': reactplugin
-    },
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
-      parser: tsparser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        ecmaFeatures: {
-          jsx: true
-        }
-      },
-      globals: {
-        document: true,
-        window: true,
-        console: true,
-        process: true,
-        setTimeout: true,
-        clearTimeout: true,
-        setInterval: true,
-        clearInterval: true,
-        HTMLElement: true,
-        HTMLDivElement: true,
-        Event: true,
-        PointerEvent: true,
-        WebKitCSSMatrix: true,
-        React: true,
-        test: true,
-        expect: true,
-        RefObject: true
-      }
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
     },
     rules: {
-      'no-unused-vars': 'off',
-      '@typescript-eslint/no-unused-vars': ['error', {
-        vars: 'all',
-        args: 'after-used',
-        ignoreRestSiblings: false,
-        varsIgnorePattern: '^_',
-        argsIgnorePattern: '^_'
-      }],
-      'react/react-in-jsx-scope': 'off'
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
     },
-    settings: {
-      react: {
-        version: 'detect'
-      }
-    }
   },
-  {
-    files: ['**/*.css'],
-    plugins: {
-      css
-    },
-    language: 'css/css',
-    ...css.configs.recommended
-  },
-  {
-    files: ['vite.config.ts', 'env.d.ts'],
-    languageOptions: {
-      globals: {
-        process: true
-      }
-    }
-  }
-]; 
+)
